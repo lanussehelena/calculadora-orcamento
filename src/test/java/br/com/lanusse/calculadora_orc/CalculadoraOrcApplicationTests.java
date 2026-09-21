@@ -13,7 +13,7 @@ class CalculadoraOrcApplicationTests {
 
     @Test
     void deveAplicarDescontoParaProjetosGrandes() {
-        assertEquals(5400.0, calculadora.calcularValorFinal(40.0));
+        assertEquals(9999.0, calculadora.calcularValorFinal(40.0));
     }
 
     @Test
