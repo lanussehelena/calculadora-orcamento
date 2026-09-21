@@ -4,15 +4,20 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CalculadoraOrcamento {
-    public double calcularValorFinal(double valorProjeto) {
-        if (valorProjeto < 0) {
-            throw new IllegalArgumentException("O valor do projeto não pode ser negativo.");
+
+    private static final double VALOR_POR_METRO_QUADRADO = 150.0;
+
+    public double calcularValorFinal(double metrosQuadrados) {
+        if (metrosQuadrados <= 0) {
+            throw new IllegalArgumentException("A metragem do ambiente deve ser maior que zero.");
         }
 
-        if (valorProjeto >= 5000.0) {
-            return valorProjeto * 0.90;
+        double valorBase = metrosQuadrados * VALOR_POR_METRO_QUADRADO;
+
+        if (valorBase >= 5000.0) {
+            return valorBase * 0.90;
         }
 
-        return valorProjeto;
+        return valorBase;
     }
 }
