@@ -1,0 +1,36 @@
+name: CI Pipeline - Calculadora
+
+on:
+  push:
+    branches: [ "main", "master" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 1. Checkout do código
+        uses: actions/checkout@v4
+
+      - name: 2. Configuração do Java 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: 3. Compilação
+        run: mvn clean compile
+
+      - name: 4. Execução dos testes
+        run: mvn test
+
+      - name: 5. Geração do JAR
+        run: mvn package -DskipTests
+
+      - name: 6. Disponibilização do artefato
+        uses: actions/upload-artifact@v4
+        with:
+          name: projeto-compilado-jar
+          path: target/*.jar
+          retention-days: 7
